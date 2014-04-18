@@ -13,3 +13,41 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+var map;
+var addressInput;
+var autocomplete;
+var newAddress;
+
+$(function() {
+
+	$('#quickSubmit').click(function() {
+		var marker=new google.maps.Marker({
+			position:newAddress
+		});
+		
+		marker.setMap(map);
+	});
+});
+
+function Initialize() {
+	addressInput = document.getElementById('searchTextField');
+	autocomplete = new google.maps.places.Autocomplete(addressInput);
+	google.maps.event.addListener(autocomplete, 'place_changed', function() {
+		SetLatLong();
+	});
+
+	var mapProp = {
+		center: new google.maps.LatLng(42.35828,-71.05417),
+		zoom:9,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+	map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+}
+
+google.maps.event.addDomListener(window, 'load', Initialize);
+
+function SetLatLong() {
+	var place = autocomplete.getPlace();
+	newAddress = place.geometry.location;
+}

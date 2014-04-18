@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MullenMaps</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <title>Team Map</title>
   <%= csrf_meta_tags %>
+
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  
+  <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAXzF0b4ICr8_OwCDZqISAnnHS3e39dqCY&libraries=places&sensor=false"></script>
+  <%= javascript_include_tag "application" %>
+  
 </head>
 <body>
 
