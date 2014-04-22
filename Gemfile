@@ -29,6 +29,8 @@ end
 gem 'jquery-rails', '3.0.4'
 gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
+gem 'bootstrap-sass', '~> 3.1.1'
+gem 'sprockets', '2.11.0'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
