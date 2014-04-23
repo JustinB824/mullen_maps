@@ -1,5 +1,9 @@
 MullenMaps::Application.routes.draw do
+  get "users/new"
   get "home/index"
+  
+  match '/create', to: 'users#new', via: 'get'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
