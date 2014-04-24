@@ -1,5 +1,5 @@
 MullenMaps::Application.routes.draw do
-  get "users/new"
+  resources :users
   get "home/index"
   
   match '/create', to: 'users#new', via: 'get'

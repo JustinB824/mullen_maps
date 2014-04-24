@@ -29,6 +29,12 @@ $(function() {
 		
 		marker.setMap(map);
 	});
+	
+	$('#searchTextField').blur(function() {
+		//if (!$('#user_address_coords').val()) {
+			$('#searchTextField').val('');
+		//}
+	});
 });
 
 function Initialize() {
@@ -51,4 +57,8 @@ google.maps.event.addDomListener(window, 'load', Initialize);
 function SetLatLong() {
 	var place = autocomplete.getPlace();
 	newAddress = place.geometry.location;
+	
+	if ($('#user_address_coords')) {
+		$('#user_address_coords').val(newAddress);
+	}
 }
