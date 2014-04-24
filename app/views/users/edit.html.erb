@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="span12">
+	  <h1>Edit Your Info</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span6 offset6">
+    <%= form_for(@user) do |f| %>
+      <%= render 'shared/error_messages' %>
+      
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name %>
+
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name %>
+
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+
+      <%= f.label :address_text, "Address" %>
+      <%= f.text_field :address_text, :id => "searchTextField" %>
+
+      <%= f.hidden_field :address_coords %>
+
+      <%= f.submit "Submit", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
