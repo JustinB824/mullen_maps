@@ -23,20 +23,36 @@ var storedAddresses = new Array();
 
 $(function() {
 
-	$('#quickSubmit').click(function() {
-		var marker = new google.maps.Marker({
-			position: newAddress
-		});
-		
-		marker.setMap(map);
+	if ($('.users_form').length) {
+		CheckValues();
+	}
+	
+	$('.users_form .emptyVal').focus(function() {
+		$(this).val('').removeClass('emptyVal');
+		if ($(this).attr('placeholder')) {
+			$(this).attr('placeholder', '');
+		}
+	});
+	
+	$('.users_form input:text').blur(function() {
+		CheckValues();
 	});
 	
 	$('#searchTextField').blur(function() {
+		//alert('stop!');
 		//if (!$('#user_address_coords').val()) {
-			$('#searchTextField').val('');
+			//$('#searchTextField').val('');
 		//}
 	});
 	
+	$(window).keydown(function(event){
+		if (event.keyCode == 13) {
+			if ($('#searchTextField').is(':focus')){
+				event.preventDefault();
+				return false;
+			}
+		}
+	});
 });
 
 google.maps.event.addDomListener(window, 'load', Initialize);
@@ -53,7 +69,7 @@ function Initialize() {
 	if ($('#googleMap').length) {
 		var mapProp = {
 			center: new google.maps.LatLng(42.35828,-71.05417),
-			zoom: 9,
+			zoom: 8,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 		map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
@@ -87,4 +103,19 @@ function LoadMarkers() {
 		
 		marker.setMap(map);
 	});
+}
+
+function CheckValues() {
+	if ($('#user_first_name').val() == '') {
+		$('#user_first_name').val('First Name').addClass('emptyVal');
+	}
+	if ($('#user_last_name').val() == '') {
+		$('#user_last_name').val('Last Name').addClass('emptyVal');
+	}
+	if ($('#user_email').val() == '') {
+		$('#user_email').val('Email').addClass('emptyVal');
+	}
+	if ($('#searchTextField').val() == '') {
+		$('#searchTextField').attr('placeholder', 'Address').addClass('emptyVal');
+	}
 }

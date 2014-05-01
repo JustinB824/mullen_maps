@@ -5,3 +5,23 @@
 input {
 	height: auto !important;
 }
+
+.users_form {
+	label {
+		display: none;
+	}
+	
+	.emptyVal {
+		color: #919191;
+		font-style: italic;
+	}
+	
+	#searchTextField {
+		color: currentcolor;
+	}
+	
+	.btn {
+		border-radius: 5px;
+		padding: 8px;
+	}
+}
