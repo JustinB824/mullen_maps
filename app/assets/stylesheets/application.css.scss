@@ -31,7 +31,6 @@
 input, textarea, select, .uneditable-input {
 	border: 1px solid #bbb;
 	width: 100%;
-	margin-bottom: 15px;
 	padding: 8px;
 	border-radius: 5px;
 	@include box_sizing;
@@ -39,6 +38,7 @@ input, textarea, select, .uneditable-input {
 
 #error_explanation {
   color: #c00;
+  
   ul {
     list-style: none;
     margin: 0 0 18px 0;

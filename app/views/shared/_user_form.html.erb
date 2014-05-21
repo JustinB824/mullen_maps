@@ -3,15 +3,19 @@
 	
 	<%= f.label :first_name %>
 	<%= f.text_field :first_name %>
+	<label id="fn_error" class="input-error"></label>
 	
 	<%= f.label :last_name %>
 	<%= f.text_field :last_name %>
+	<label id="ln_error" class="input-error"></label>
 	
 	<%= f.label :email %>
 	<%= f.text_field :email %>
+	<label id="email_error" class="input-error"></label>
 	
 	<%= f.label :address_text, "Address" %>
 	<%= f.text_field :address_text, :id => "searchTextField", :placeholder => "Address" %>
+	<label id="address_error" class="input-error"></label>
 	
 	<%= f.hidden_field :address_coords %>
 	
