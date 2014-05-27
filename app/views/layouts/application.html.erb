@@ -9,11 +9,12 @@
 
   <%= stylesheet_link_tag "application", :media => "all" %>
   
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.8/angular.min.js"></script>
   <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAXzF0b4ICr8_OwCDZqISAnnHS3e39dqCY&libraries=places&sensor=false"></script>
   <%= javascript_include_tag "application" %>
   
 </head>
-<body>
+<body ng-app>
 
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">

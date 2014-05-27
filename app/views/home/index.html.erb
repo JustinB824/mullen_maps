@@ -1,7 +1,6 @@
 <div class="row">
 	<div class="col-md-12">
 		<h1>Team Map</h1>
-		<p>Find me in app/views/home/index.html.erb</p>
 	</div>
 </div>
 
@@ -12,6 +11,32 @@
   <div class="col-md-2"></div>
 </div>
 
-<% @users.each do |user| %>
-  <script>ParseCoords('<%= user.address_coords %>');</script>
-<% end %>
+<div class="row">
+	<div class="col-md-8 col-md-offset-2" ng-controller="TestController">
+		<div ng-click="Pop()">{{sometext}}</div>
+		<div id="userList"></div>
+	</div>
+  <div class="col-md-2"></div>
+</div>
+
+<div class="row">
+	<div class="col-md-8 col-md-offset-2" ng-controller="UsersController">
+		<table id="angularUsers" class="table table-striped">
+		<thead>
+		  <tr>
+			  <th>Name</th>
+			  <th>Email</th>
+			  <th>Location</th>
+		  </tr>
+		</thead>
+		<tbody>
+		    <tr ng-repeat="user in users" data-id="{{user.id}}">
+		      <td>{{user.first_name}} {{user.last_name}}</td>
+		      <td>{{user.email}}</td>
+		      <td>{{user.address_text}}</td>
+		    </tr>
+		</tbody>
+		</table>
+	</div>
+  <div class="col-md-2"></div>
+</div>

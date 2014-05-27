@@ -42,7 +42,7 @@ $(function() {
 	$('.users_form form').on('submit', function(e) {
 		Validation(e);
 	});
-	
+		
 	$(window).keydown(function(event){
 		if (event.keyCode == 13) {
 			if ($('#searchTextField').is(':focus')){
@@ -68,12 +68,13 @@ function Initialize() {
 		var mapProp = {
 			center: new google.maps.LatLng(42.35828,-71.05417),
 			zoom: 8,
+			scrollwheel: false,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
-		map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+		map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 		
-		LoadMarkers();
 	}
+	
 }
 
 function SetLatLong() {
@@ -90,16 +91,25 @@ function ParseCoords(ll) {
 	var coords = ll.split(',');
 	var address = new google.maps.LatLng(Number(coords[0]), Number(coords[1]));
 	
-	storedAddresses.push(address);
+	return address;
 }
 
-function LoadMarkers() {
-	$.each(storedAddresses, function() {
-		var marker = new google.maps.Marker({
-			position: this
-		});
-		
-		marker.setMap(map);
+function LoadMarkers(obj) {
+	var pos = ParseCoords(obj.address_coords);
+	var name = obj.first_name + ' ' + obj.last_name;
+
+	var marker = new google.maps.Marker({
+		position: pos,
+		title: name
+	});
+	
+	marker.setMap(map);
+
+	google.maps.event.addListener(marker, 'mouseover', function(event) {
+		$('#angularUsers tr[data-id=' + obj.id + ']').addClass('warning');
+	});
+	google.maps.event.addListener(marker, 'mouseout', function(event) {
+		$('#angularUsers tr[data-id=' + obj.id + ']').removeClass('warning');
 	});
 }
 
