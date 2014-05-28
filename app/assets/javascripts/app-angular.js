@@ -1,12 +1,3 @@
-var sometext = "Angular Test";
-
-function TestController($scope) {
-	$scope.sometext = sometext;
-	
-	$scope.Pop = function() {
-		$scope.sometext = "You CLICKED me!!!!"
-	};
-}
 
 function UsersController($scope, $http) {
 	$http.get('/users.json').success(function(data, status, headers, config) {
@@ -15,7 +6,24 @@ function UsersController($scope, $http) {
 		for (var i=0; i < $scope.users.length; i++) {
 			LoadMarkers($scope.users[i]);
 		}
+		
+		$scope.ActiveMarker = function(id) {
+			var toUpdate = FindAddress(id).marker;
+			toUpdate.setIcon('assets/marker-hi.png');
+		}
 
-		//LoadMarkers();
+		$scope.InactiveMarker = function(id) {
+			var toUpdate = FindAddress(id).marker;
+			toUpdate.setIcon();
+		}
 	});
+}
+
+function FindAddress(id) {
+	for (var i=0; i<storedAddresses.length; i++) {
+		if (storedAddresses[i].id == id) {
+			return storedAddresses[i];			
+		}
+	}
+	return null;
 }

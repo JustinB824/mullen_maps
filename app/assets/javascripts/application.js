@@ -74,7 +74,6 @@ function Initialize() {
 		map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 		
 	}
-	
 }
 
 function SetLatLong() {
@@ -95,6 +94,7 @@ function ParseCoords(ll) {
 }
 
 function LoadMarkers(obj) {
+	var stored = {};
 	var pos = ParseCoords(obj.address_coords);
 	var name = obj.first_name + ' ' + obj.last_name;
 
@@ -104,12 +104,16 @@ function LoadMarkers(obj) {
 	});
 	
 	marker.setMap(map);
+	
+	stored.id = obj.id;
+	stored.marker = marker;
+	storedAddresses.push(stored);
 
 	google.maps.event.addListener(marker, 'mouseover', function(event) {
-		$('#angularUsers tr[data-id=' + obj.id + ']').addClass('warning');
+		$('#angularUsers tr[data-id=' + obj.id + ']').addClass('info');
 	});
 	google.maps.event.addListener(marker, 'mouseout', function(event) {
-		$('#angularUsers tr[data-id=' + obj.id + ']').removeClass('warning');
+		$('#angularUsers tr[data-id=' + obj.id + ']').removeClass('info');
 	});
 }
 
