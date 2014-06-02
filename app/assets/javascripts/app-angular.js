@@ -20,7 +20,7 @@ function UsersController($scope, $http) {
 }
 
 function FindAddress(id) {
-	for (var i=0; i<storedAddresses.length; i++) {
+	for (var i = 0; i < storedAddresses.length; i++) {
 		if (storedAddresses[i].id == id) {
 			return storedAddresses[i];			
 		}
