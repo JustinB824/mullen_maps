@@ -16,14 +16,11 @@ function UsersController($scope, $http) {
 			var toUpdate = FindAddress(id).marker;
 			toUpdate.setIcon();
 		}
-	});
-}
 
-function FindAddress(id) {
-	for (var i = 0; i < storedAddresses.length; i++) {
-		if (storedAddresses[i].id == id) {
-			return storedAddresses[i];			
+		$scope.ZoomMarker = function(id) {
+			var toUpdate = FindAddress(id).marker;
+			var coords = toUpdate.position;
+			ZoomWithWindow(toUpdate, 17);
 		}
-	}
-	return null;
+	});
 }

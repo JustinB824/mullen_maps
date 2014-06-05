@@ -7,27 +7,39 @@
 <div class="row">
 	<div class="col-md-4" ng-controller="UsersController">
 		<table id="angularUsers" class="table table-striped">
-		<thead>
-		  <tr>
-			  <th>Name</th>
-			  <th>Email</th>
-		  </tr>
-		</thead>
-		<tbody>
-		    <tr ng-repeat="user in users" data-id="{{user.id}}" ng-mouseover="ActiveMarker(user.id)" ng-mouseout="InactiveMarker(user.id)">
-		      <td>{{user.first_name}} {{user.last_name}}</td>
-		      <td>{{user.email}}</td>
-		    </tr>
-		</tbody>
+			<col />
+			<col />
+			<col />
+			<thead>
+				<tr>
+					<th colspan="3">Name</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="user in users" data-id="{{user.id}}" ng-mouseover="ActiveMarker(user.id)" ng-mouseout="InactiveMarker(user.id)">
+					<td class="names" ng-click="ZoomMarker(user.id)">{{user.first_name}} {{user.last_name}}</td>
+					<td>
+						<a href="mailto:{{user.email}}?subject=Commuter question&body=Hi {{user.first_name}}, " alt="Commuter question" title="Commuter question">
+							<span class="glyphicon glyphicon-road">
+						</a>
+					</td>
+					<td>
+						<a href="mailto:{{user.email}}?subject=Apartment question&body=Hi {{user.first_name}}, " alt="Apartment question" title="Apartment question">
+							<span class="glyphicon glyphicon-home"></span>
+						</a>
+					</td>
+				</tr>
+			</tbody>
 		</table>
 	</div>
 	<div class="col-md-8">
 		<div id="googleMap" style="width:100%; height:400px;"></div>
+		<div><a href="javascript:ResetMap();">Reset Map</a></div>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-md-8 col-md-offset-2">
 	</div>
-  <div class="col-md-2"></div>
+	<div class="col-md-2"></div>
 </div>

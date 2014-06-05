@@ -48,16 +48,32 @@ input, textarea, select, .uneditable-input {
 #angularUsers {
 	table-layout: fixed;
 	
+	col {
+		width: 15%;
+		
+		&:first-child {
+			width: 70%;
+		}
+	}
+	
 	tbody {
 		tr {
 			&:hover {
-				cursor: pointer;
+				
 				td {
 					background-color: #d9edf7;
+					
+					&.names:hover {
+						cursor: pointer;
+					}
 				}
 			}
 			td {
 				word-wrap: break-word;
+
+				&.names {
+					width: 80%;
+				}
 			}
 		}
 	}

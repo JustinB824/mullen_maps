@@ -16,11 +16,15 @@
 //= require_tree .
 
 var map;
+var initCenter = new google.maps.LatLng(42.35828,-71.05417);
+var initZoom = 8;
+var initType = google.maps.MapTypeId.ROADMAP;
 var addressInput;
 var autocomplete;
 var newAddress;
 var emailRegEx = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 var storedAddresses = new Array();
+var infowindow;
 
 $(function() {
 
@@ -53,70 +57,6 @@ $(function() {
 	});
 });
 
-google.maps.event.addDomListener(window, 'load', Initialize);
-
-function Initialize() {
-	if ($('#searchTextField').length) {
-		addressInput = document.getElementById('searchTextField');
-		autocomplete = new google.maps.places.Autocomplete(addressInput);
-		google.maps.event.addListener(autocomplete, 'place_changed', function() {
-			SetLatLong();
-		});
-	}
-
-	if ($('#googleMap').length) {
-		var mapProp = {
-			center: new google.maps.LatLng(42.35828,-71.05417),
-			zoom: 8,
-			scrollwheel: false,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-		};
-		map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-		
-	}
-}
-
-function SetLatLong() {
-	var place = autocomplete.getPlace();
-	newAddress = place.geometry.location;
-	
-	if ($('#user_address_coords')) {
-		$('#user_address_coords').val(newAddress);
-	}
-}
-
-function ParseCoords(ll) {
-	ll = ll.replace('(', '').replace(')', '').trim();
-	var coords = ll.split(',');
-	var address = new google.maps.LatLng(Number(coords[0]), Number(coords[1]));
-	
-	return address;
-}
-
-function LoadMarkers(obj) {
-	var stored = {};
-	var pos = ParseCoords(obj.address_coords);
-	var name = obj.first_name + ' ' + obj.last_name;
-
-	var marker = new google.maps.Marker({
-		position: pos,
-		title: name
-	});
-	
-	marker.setMap(map);
-	
-	stored.id = obj.id;
-	stored.marker = marker;
-	storedAddresses.push(stored);
-
-	google.maps.event.addListener(marker, 'mouseover', function(event) {
-		$('#angularUsers tr[data-id=' + obj.id + ']').addClass('info');
-	});
-	google.maps.event.addListener(marker, 'mouseout', function(event) {
-		$('#angularUsers tr[data-id=' + obj.id + ']').removeClass('info');
-	});
-}
-
 function CheckValues() {
 	if ($('#user_first_name').val() == '') {
 		$('#user_first_name').val('First Name').addClass('emptyVal');
@@ -133,43 +73,43 @@ function CheckValues() {
 }
 
 function Validation(e) {
-		if (($('#user_first_name').hasClass('emptyVal')) || ($('#user_first_name').val().trim() == '')) {
-			$('#fn_error').html('You must enter your First Name');
-			e.preventDefault();
-		}
-		else {
-			$('#fn_error').html('');
-		}
-		
-		if (($('#user_last_name').hasClass('emptyVal')) || ($('#user_last_name').val().trim() == '')) {
-			$('#ln_error').html('You must enter your Last Name');
-			e.preventDefault();
-		}
-		else {
-			$('#ln_error').html('');
-		}
+	if (($('#user_first_name').hasClass('emptyVal')) || ($('#user_first_name').val().trim() == '')) {
+		$('#fn_error').html('You must enter your First Name');
+		e.preventDefault();
+	}
+	else {
+		$('#fn_error').html('');
+	}
+	
+	if (($('#user_last_name').hasClass('emptyVal')) || ($('#user_last_name').val().trim() == '')) {
+		$('#ln_error').html('You must enter your Last Name');
+		e.preventDefault();
+	}
+	else {
+		$('#ln_error').html('');
+	}
 
-		if (($('#user_email').hasClass('emptyVal')) || ($('#user_email').val().trim() == '')) {
-			$('#email_error').html('You must enter your Email Address');
-			e.preventDefault();
-		}
-		else if (($('#user_email').val().trim() != '') && (!$('#user_email').hasClass('emptyVal')) && (!emailRegEx.test($('#user_email').val()))) {
-			$('#email_error').html('Please enter a valid Email Address');
-			e.preventDefault();
-		}
-		else {
-			$('#email_error').html('');
-		}
-		
-		if (($('#searchTextField').hasClass('emptyVal')) || ($('#searchTextField').val().trim() == '')) {
-			$('#address_error').html('You must enter your Address or City');
-			e.preventDefault();
-		}
-		else if (($('#searchTextField').val().trim() != '') && ($('#user_address_coords').val() == '')) {
-			$('#address_error').html('You must select your location from the MapQuest dropdown options');
-			e.preventDefault();
-		}
-		else {
-			$('#address_error').html('');
-		}
+	if (($('#user_email').hasClass('emptyVal')) || ($('#user_email').val().trim() == '')) {
+		$('#email_error').html('You must enter your Email Address');
+		e.preventDefault();
+	}
+	else if (($('#user_email').val().trim() != '') && (!$('#user_email').hasClass('emptyVal')) && (!emailRegEx.test($('#user_email').val()))) {
+		$('#email_error').html('Please enter a valid Email Address');
+		e.preventDefault();
+	}
+	else {
+		$('#email_error').html('');
+	}
+	
+	if (($('#searchTextField').hasClass('emptyVal')) || ($('#searchTextField').val().trim() == '')) {
+		$('#address_error').html('You must enter your Address or City');
+		e.preventDefault();
+	}
+	else if (($('#searchTextField').val().trim() != '') && ($('#user_address_coords').val() == '')) {
+		$('#address_error').html('You must select your location from the MapQuest dropdown options');
+		e.preventDefault();
+	}
+	else {
+		$('#address_error').html('');
+	}
 }
