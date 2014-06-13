@@ -32,9 +32,17 @@ class UsersController < ApplicationController
   
   def create
   	@user = User.new(user_params)
+
   	if @user.save
-  		flash[:success] = "Your info is now included in the map!"
-  		redirect_to @user
+  		#flash[:success] = "Your info is now included in the map!"
+	  flash[:notice] = "Your info is now included in the map!"
+	  page.reload_flash
+	  render :partial => 'shared/user_form', :object => @user
+  	#end
+
+  	#if @user.save
+  		#flash[:success] = "Your info is now included in the map!"
+  		#redirect_to @user
   	else
   		render 'new'
   	end

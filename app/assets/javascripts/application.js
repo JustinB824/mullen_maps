@@ -46,6 +46,10 @@ $(function() {
 	$('.users_form form').on('submit', function(e) {
 		Validation(e);
 	});
+	
+	$('.users_form form').bind("ajax:complete", function(event,xhr,status){
+		ClearValues();
+	});
 		
 	$(window).keydown(function(event){
 		if (event.keyCode == 13) {
@@ -56,6 +60,14 @@ $(function() {
 		}
 	});
 });
+
+function ClearValues() {
+	$('#user_first_name').val('First Name').addClass('emptyVal');
+	$('#user_last_name').val('Last Name').addClass('emptyVal');
+	$('#user_email').val('Email').addClass('emptyVal');
+	$('#searchTextField').val('').attr('placeholder', 'Address').addClass('emptyVal');
+	$('#user_address_coords').val('');
+}
 
 function CheckValues() {
 	if ($('#user_first_name').val() == '') {
