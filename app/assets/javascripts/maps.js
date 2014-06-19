@@ -1,3 +1,10 @@
+var map;
+var initCenter = new google.maps.LatLng(42.35828,-71.05417);
+var initZoom = 8;
+var initType = google.maps.MapTypeId.ROADMAP;
+var storedAddresses = new Array();
+var infowindow;
+
 google.maps.event.addDomListener(window, 'load', Initialize);
 
 function Initialize() {

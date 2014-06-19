@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   end
   
   def index
-  	@users = User.all
+  	@users = User.order('created_at DESC').all
 
     respond_to do |format|
       format.html
@@ -23,8 +23,7 @@ class UsersController < ApplicationController
   def update
   	@user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      flash[:success] = "Info updated"
-      redirect_to @user
+	  render :partial => 'shared/user_form', :object => @user
     else
       render 'edit'
     end
@@ -34,15 +33,7 @@ class UsersController < ApplicationController
   	@user = User.new(user_params)
 
   	if @user.save
-  		#flash[:success] = "Your info is now included in the map!"
-	  flash[:notice] = "Your info is now included in the map!"
-	  page.reload_flash
 	  render :partial => 'shared/user_form', :object => @user
-  	#end
-
-  	#if @user.save
-  		#flash[:success] = "Your info is now included in the map!"
-  		#redirect_to @user
   	else
   		render 'new'
   	end

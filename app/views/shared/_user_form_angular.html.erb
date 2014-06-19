@@ -1,0 +1,19 @@
+<form class="new_user" id="new_user" ng-controller="AddUserController">
+	
+	<input id="user_first_name" name="user[first_name]" type="text" ng-model="user.first" />
+	<label id="fn_error" class="input-error"></label>
+	
+	<input id="user_last_name" name="user[last_name]" type="text" ng-model="user.last" />
+	<label id="ln_error" class="input-error"></label>
+	
+	<input id="user_email" name="user[email]" type="text" ng-model="user.email" />
+	<label id="email_error" class="input-error"></label>
+	
+	<input id="searchTextField" name="user[address_text]" placeholder="Address" type="text" ng-model="user.address_text" />
+	<label id="address_error" class="input-error"></label>
+	
+	<input id="user_address_coords" name="user[address_coords]" type="hidden" ng-model="user.address_coords" />
+	
+	<input class="btn btn-large btn-primary" name="commit" type="button" value="Submit" ng-click="addUser()" />
+	
+</form>
